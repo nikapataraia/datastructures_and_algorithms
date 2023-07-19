@@ -1,4 +1,4 @@
-public class Element<T extends Number | String> {
+public class Element<T> {
     private T value;
 
     public Element(T value){
@@ -15,19 +15,16 @@ public class Element<T extends Number | String> {
         return value;
     }
 
-    public int compare(T other){
-        if(this.value instanceof Number && other instanceof Number){
-            if(value > other){
-                return -1
-            }
-            if(value < other){
-                return 1
-            }
-            return 0
+    public int compare(Element<T> other) {
+        if (value instanceof Number && other.value instanceof Number) {
+            Number thisNumber = (Number) value;
+            Number otherNumber = (Number) other.value;
+            return Double.compare(thisNumber.doubleValue(), otherNumber.doubleValue());
+        } else if (value instanceof String && other.value instanceof String) {
+            String thisString = (String) value;
+            return thisString.compareToIgnoreCase((String) other.value);
+        } else {
+            throw new IllegalArgumentException("Unsupported types for comparison.");
         }
-        if(this.value instanceof String && other instanceof String){
-            return other.compareToIgnoreCase(this.value)
-        }
-        throw new IllegalArgumentException("Unsupported types for comparison.");
     }
 }
