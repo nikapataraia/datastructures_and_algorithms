@@ -2,7 +2,7 @@ public class Element<T> {
     private T value;
 
     public Element(T value){
-        this.exists = true;
+        this.value = value;
     }
     public Element(){
         this.value = null;
@@ -15,14 +15,14 @@ public class Element<T> {
         return value;
     }
 
-    public int compare(Element<T> other) {
-        if (value instanceof Number && other.value instanceof Number) {
+    public int compare(T other) {
+        if (value instanceof Number && other instanceof Number) {
             Number thisNumber = (Number) value;
-            Number otherNumber = (Number) other.value;
+            Number otherNumber = (Number) other;
             return Double.compare(thisNumber.doubleValue(), otherNumber.doubleValue());
-        } else if (value instanceof String && other.value instanceof String) {
+        } else if (value instanceof String && other instanceof String) {
             String thisString = (String) value;
-            return thisString.compareToIgnoreCase((String) other.value);
+            return thisString.compareToIgnoreCase((String) other);
         } else {
             throw new IllegalArgumentException("Unsupported types for comparison.");
         }
